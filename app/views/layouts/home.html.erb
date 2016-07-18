@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width" />
+
+
+	<title>SimpleWeb</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <%= stylesheet_link_tag    'home', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'user', media: 'all', 'data-turbolinks-track' => true if params[:controller] == 'user' %>
+
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+
+
+
+	<%= csrf_meta_tags %>
+
+</head>
+<body>
+
+<%#
+	header_partial = ERB.new(File.new("~/home-header.html.erb").read).result(binding)
+	footer_partial = ERB.new(File.new("~/home-footer.html.erb").read).result(binding)
+%>
+
+	<section class="header">
+		<%#= header_partial %>
+		<%= render 'layouts/home_header' %>
+	</section>
+	<section class="body">
+		<%= yield %>
+	</section>
+	<section class="footer">
+		<%#= footer_partial %>
+		<%= render 'layouts/home_footer' %>
+	</section>
+</body>
+</html>
