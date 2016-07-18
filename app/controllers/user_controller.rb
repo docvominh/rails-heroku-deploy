@@ -68,7 +68,7 @@ class UserController < ApplicationController
     @user.user_id="minhpd"
     @user.password="123456"
     @user.user_name="Phạm Đức Minh"
-    @user.mail="phamducminh1990@gmail.com"
+    @user.email="phamducminh1990@gmail.com"
     if @user.save
       puts "save success"
     end
