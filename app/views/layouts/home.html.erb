@@ -14,8 +14,8 @@
 	<title>SimpleWeb</title>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 
-  <%= stylesheet_link_tag    'home', media: 'all', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag    'user', media: 'all', 'data-turbolinks-track' => true if params[:controller] == 'user' %>
+  	<%#= stylesheet_link_tag    'home', media: 'all', 'data-turbolinks-track' => true %>
+  	<%= stylesheet_link_tag    'user', media: 'all', 'data-turbolinks-track' => true if params[:controller] == 'user' %>
 
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
