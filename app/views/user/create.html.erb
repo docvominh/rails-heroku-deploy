@@ -2,7 +2,7 @@
   <p>Find me in app/views/user/create.html.erb</p>
 
   <%= error_messages_for(@user) %>
-  <%= form_for @user, :validate => true, :url => url_for(:controller => 'user', :action => 'create_user') do |m| %>
+  <%= form_for @user, :validate => true, :url => url_for(:controller => 'user', :action => 'create_user'), html: {multipart: true} do |m| %>
 
       <%= m.label :user_id %>
       <%= m.text_field :user_id, :class => 'form-control' %>
@@ -31,7 +31,10 @@
       <br>
       <%= m.label :note %>
       <%= m.text_field :note, :class => 'form-control' %>
+
       <br>
+      <%= m.label :img_url %>
+      <%= m.file_field :img_url, :class => 'form-control' %>
 
       <%= m.submit :value => 'Create', :class => 'btn btn-lg btn-success btn-block' %>
   <% end %>

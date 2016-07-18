@@ -35,6 +35,9 @@ gem 'font-awesome-sass'
 gem 'rails-footnotes'
 
 
+# file upload
+gem 'paperclip'
+
 
 
 
