@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
-
+# for heroku
+ruby "2.2.4"
+gem 'rails_12factor'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
@@ -31,6 +33,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'rails-footnotes'
+
+
+
+
 
 # add this gem to use attr_accessible
 #gem 'protected_attributes'
