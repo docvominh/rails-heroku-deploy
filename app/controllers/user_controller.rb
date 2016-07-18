@@ -6,7 +6,7 @@ class UserController < ApplicationController
   before_action :require_login
 
   # under action will skip require_login
-  skip_before_action :require_login, only: [:index]
+  skip_before_action :require_login, only: [:index,:insert_default]
 
   def index
     @user = UserModel.where(user_id: params[:user_id]).first
@@ -60,6 +60,19 @@ class UserController < ApplicationController
 
   def all
     @all_model = UserModel.all
+  end
+
+
+  def insert_default
+    @user = UserModel.new
+    @user.user_id="minhpd"
+    @user.password="123456"
+    @user.user_name="Phạm Đức Minh"
+    @user.mail="phamducminh1990@gmail.com"
+    if @user.save
+      puts "save success"
+    end
+
   end
 
   private

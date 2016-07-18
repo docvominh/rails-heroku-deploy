@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   put 'user/update_user', to: 'user#update_user'
   delete 'user/delete/:id', to:'user#delete'
   get 'user/all'
+  get 'user/insert_default'
 
   root 'home#index'
   get 'home', to: 'home#index'
