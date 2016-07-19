@@ -6,7 +6,7 @@ class UserController < ApplicationController
   before_action :require_login
 
   # under action will skip require_login
-  skip_before_action :require_login, only: [:index,:insert_default]
+  skip_before_action :require_login, only: [:index, :insert_default]
 
   def index
     @user = UserModel.where(user_id: params[:user_id]).first
@@ -17,6 +17,7 @@ class UserController < ApplicationController
 
   def create
     @user = UserModel.new
+    @user_image = UserImage.new
   end
 
   def create_user
@@ -62,6 +63,19 @@ class UserController < ApplicationController
     @all_model = UserModel.all
   end
 
+  def upload_user_image
+    puts "1"
+    @user_image = UserImage.new(image_params)
+    puts "2"
+
+
+    if @user_image.save
+      render json: 'FUCK, cannot save to db'
+    else
+      render json: 'FUCK, cannot save to db'
+    end
+  end
+
 
   def insert_default
     @user = UserModel.new
@@ -77,7 +91,11 @@ class UserController < ApplicationController
 
   private
   def user_params
-    params.required(:user_model).permit(:user_id, :user_name, :password, :password_confirmation, :date_of_birth, :email, :note,:img_url)
+    params.required(:user_model).permit(:user_id, :user_name, :password, :password_confirmation, :date_of_birth, :email, :note, :img_url)
+  end
+
+  def image_params
+    params.required(:user_image).permit(:name, :attachment)
   end
 
 

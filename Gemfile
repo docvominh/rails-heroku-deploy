@@ -36,9 +36,9 @@ gem 'rails-footnotes'
 
 
 # file upload
-gem 'paperclip'
+gem 'carrierwave'
 
-
+gem 'remotipart'
 
 
 # add this gem to use attr_accessible

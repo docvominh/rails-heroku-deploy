@@ -12,6 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+
+// Ajax upload file
+//= require jquery.remotipart
+
 //= require turbolinks
 //= require bootstrap-sprockets
 

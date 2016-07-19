@@ -47,10 +47,12 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.2)
     byebug (9.0.5)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
+    carrierwave (0.11.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+      mimemagic (>= 0.3.0)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
     erubis (2.7.0)
@@ -82,12 +84,6 @@ GEM
     nokogiri (1.6.8-x64-mingw32)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
-    paperclip (5.0.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      cocaine (~> 0.5.5)
-      mime-types
-      mimemagic (~> 0.3.0)
     pg (0.18.4-x64-mingw32)
     pkg-config (1.1.7)
     postgresql (1.0.0)
@@ -129,6 +125,7 @@ GEM
     rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
+    remotipart (1.2.1)
     sass (3.4.22)
     sass-rails (5.0.5)
       railties (>= 4.0.0, < 6)
@@ -171,14 +168,15 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass
   byebug
+  carrierwave
   font-awesome-sass
   jbuilder (~> 2.0)
   jquery-rails
-  paperclip
   postgresql
   rails (= 4.2.6)
   rails-footnotes
   rails_12factor
+  remotipart
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   turbolinks

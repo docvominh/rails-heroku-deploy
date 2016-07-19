@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718014939) do
+ActiveRecord::Schema.define(version: 20160719064908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20160718014939) do
     t.string   "description"
   end
 
+  create_table "resumes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tb_user", force: :cascade do |t|
     t.string "user_id",         limit: 30
     t.string "user_name",       limit: 100
@@ -33,6 +40,13 @@ ActiveRecord::Schema.define(version: 20160718014939) do
     t.string "email",           limit: 200
     t.text   "note"
     t.date   "last_login"
+  end
+
+  create_table "user_images", force: :cascade do |t|
+    t.string   "name"
+    t.string   "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_models", force: :cascade do |t|

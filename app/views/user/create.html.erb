@@ -2,7 +2,7 @@
   <p>Find me in app/views/user/create.html.erb</p>
 
   <%= error_messages_for(@user) %>
-  <%= form_for @user, :validate => true, :url => url_for(:controller => 'user', :action => 'create_user'), html: {multipart: true} do |m| %>
+  <%= form_for @user, :validate => true, :url => url_for(:controller => 'user', :action => 'create_user') do |m| %>
 
       <%= m.label :user_id %>
       <%= m.text_field :user_id, :class => 'form-control' %>
@@ -32,12 +32,37 @@
       <%= m.label :note %>
       <%= m.text_field :note, :class => 'form-control' %>
 
-      <br>
-      <%= m.label :img_url %>
-      <%= m.file_field :img_url, :class => 'form-control' %>
-
       <%= m.submit :value => 'Create', :class => 'btn btn-lg btn-success btn-block' %>
+  <% end %>
+
+  <%= form_for @user_image, :remote => true,:format => 'js', :url => url_for(:controller => 'user', :action => 'upload_user_image'), html: {multipart: true, id: 'imageForm'} do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <br>
+      <%= f.label :attachment %>
+      <%= f.file_field :attachment %>
+      <br>
+      <%= f.submit 'Upload', id: 'image-upload', class: 'btn btn-primary' %>
+      <!--<button type="button" id="image-upload" class="btn btn-primary">Upload</button>-->
   <% end %>
 
 
 </div>
+<script>
+
+  $(function () {
+
+    $('#imageForm').on("ajax:success", function () {
+      console.log('fuck')
+      if ( $(this).data('remotipartSubmitted') ){
+        console.log('fuck 2')
+      }
+    });
+
+    $('#imageForm').on("ajax:remotipartComplete", function(e, data){
+      console.log(e, data)
+    });
+
+
+  });
+</script>
