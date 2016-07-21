@@ -8,6 +8,8 @@ class UserController < ApplicationController
   # under action will skip require_login
   skip_before_action :require_login, only: [:index, :insert_default]
 
+  skip_before_action :verify_authenticity_token, only: [:upload_user_image]
+
   def index
     @user = UserModel.where(user_id: params[:user_id]).first
     if @user
@@ -17,8 +19,8 @@ class UserController < ApplicationController
 
   def create
     @user = UserModel.new
-    @user_image = UserImage.new
   end
+
 
   def create_user
     @user = UserModel.new(user_params)
@@ -28,9 +30,43 @@ class UserController < ApplicationController
     end
 
     if @user.save
-      redirect_to action: "index", user_id: @user.user_id
+      if request.xhr?
+        render :json => {
+            :user => @user,
+        }
+      else
+        redirect_to action: "index", user_id: @user.user_id
+      end
     end
   end
+
+
+  def create_ajax_form
+    @user = UserModel.new
+  end
+
+  def create_user_rails_ajax_form
+    @user = UserModel.new(user_params)
+
+    if @user.invalid?
+      render action: 'create_ajax_form'
+    end
+
+    if @user.save
+      if request.xhr?
+        respond_to do |format|
+          format.html { render 'create_ajax_form_template' }
+          format.js { render 'create_ajax_form_action' }
+          format.json { render :json => {
+              :user => @user
+          } }
+        end
+      else
+        redirect_to action: "index", user_id: @user.user_id
+      end
+    end
+  end
+
 
   def update
     @user = UserModel.where(user_id: params[:user_id]).first
@@ -40,14 +76,13 @@ class UserController < ApplicationController
   def update_user
     @user = UserModel.new(user_params)
 
-    puts @user
-    # if @user.invalid?
-    #   render action: "update"
-    # end
-    #
-    # if User.update_attributes(@user)
-    #   redirect_to action: "index", user_id: @user.user_id
-    # end
+    if @user.invalid?
+      render action: "update"
+    end
+
+    if UserModel.update_attributes(@user)
+      redirect_to action: "index", user_id: @user.user_id
+    end
   end
 
   def delete
@@ -64,15 +99,14 @@ class UserController < ApplicationController
   end
 
   def upload_user_image
-    puts "1"
-    @user_image = UserImage.new(image_params)
-    puts "2"
+    user_image = UserImage.new(image_params)
 
+    if user_image.save
+      @id = user_image.id
 
-    if @user_image.save
-      render json: 'FUCK, cannot save to db'
-    else
-      render json: 'FUCK, cannot save to db'
+      render :json => {
+          :id => @id,
+      }
     end
   end
 
@@ -91,11 +125,11 @@ class UserController < ApplicationController
 
   private
   def user_params
-    params.required(:user_model).permit(:user_id, :user_name, :password, :password_confirmation, :date_of_birth, :email, :note, :img_url)
+    params.require(:user_model).permit(:user_id, :user_name, :password, :password_confirmation, :date_of_birth, :email, :note, :img_url)
   end
 
   def image_params
-    params.required(:user_image).permit(:name, :attachment)
+    params.require(:user_image).permit(:name, :attachment)
   end
 
 

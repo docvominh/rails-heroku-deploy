@@ -1,0 +1,56 @@
+<div class="container" style=" padding-top: 100px;">
+  <div class="col-lg-6 col-md-6">
+    <%= error_messages_for(@user) %>
+    <%= form_for @user, data: {remote: true, validate: true}, :url => url_for(:controller => 'user', :action => 'create_user_rails_ajax_form'), html: {id: 'myForm'} do |m| %>
+
+        <%= m.label :user_id %>
+        <%= m.text_field :user_id, :class => 'form-control' %>
+
+        <br>
+        <%= m.label :user_name %>
+        <%= m.text_field :user_name, :class => 'form-control' %>
+
+        <br>
+        <%= m.label :password %>
+        <%= m.password_field :password, :placeholder => "Password", :class => 'form-control' %>
+
+        <br>
+        <%= m.label :password_confirmation %>
+        <%= m.password_field :password_confirmation, :placeholder => "Password confirm field", :class => 'form-control' %>
+
+        <br>
+        <%= m.label :date_of_birth %>
+        <%= m.date_select(:date_of_birth, {:order => [:month, :day, :year], :start_year => 1975, :prompt => {:month => 'Month', :day => 'Day', :year => 'Year'}}, :class => "form-control date-select") %>
+
+        <br>
+        <%= m.label :email %>
+        <%= m.text_field :email, :class => 'form-control' %>
+
+        <br>
+        <%= m.label :note %>
+        <%= m.text_field :note, :class => 'form-control' %>
+        <br>
+        <%= m.submit :value => 'Create by Ajax Form', :class => 'btn btn-lg btn-success btn-block' %>
+    <% end %>
+  </div>
+
+  <div id="result" class="col-lg-6 col-md-6">
+
+  </div>
+
+</div>
+<script>
+
+  $(function () {
+
+    $('#myForm').on("ajax:success", function (result) {
+      console.log("Success !")
+      console.log(result)
+    });
+
+    $('#myForm').on("ajax:error", function () {
+      console.log("Request fail ...")
+    });
+
+  });
+</script>

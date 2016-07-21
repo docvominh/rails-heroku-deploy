@@ -1,8 +1,14 @@
-<div class="container" style=" padding-top: 100px;">
-  <p>Find me in app/views/user/create.html.erb</p>
+<style>
+  .btn {
+    width: 49% !important;
+    display: inline-block;
+    margin-top: 0 !important;
+  }
+</style>
 
+<div class="container" style=" padding-top: 100px;">
   <%= error_messages_for(@user) %>
-  <%= form_for @user, :validate => true, :url => url_for(:controller => 'user', :action => 'create_user') do |m| %>
+  <%= form_for @user, data: {validate: true}, :url => url_for(:controller => 'user', :action => 'create_user'), html: {id: 'myForm'} do |m| %>
 
       <%= m.label :user_id %>
       <%= m.text_field :user_id, :class => 'form-control' %>
@@ -31,38 +37,33 @@
       <br>
       <%= m.label :note %>
       <%= m.text_field :note, :class => 'form-control' %>
-
-      <%= m.submit :value => 'Create', :class => 'btn btn-lg btn-success btn-block' %>
-  <% end %>
-
-  <%= form_for @user_image, :remote => true,:format => 'js', :url => url_for(:controller => 'user', :action => 'upload_user_image'), html: {multipart: true, id: 'imageForm'} do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
       <br>
-      <%= f.label :attachment %>
-      <%= f.file_field :attachment %>
-      <br>
-      <%= f.submit 'Upload', id: 'image-upload', class: 'btn btn-primary' %>
-      <!--<button type="button" id="image-upload" class="btn btn-primary">Upload</button>-->
+      <%= m.submit :value => 'Normal Submit', :class => 'btn btn-lg btn-success btn-block' %>
+      <button type="button" id="submitButton" class="btn btn-lg btn-success btn-block">Submit JQuery Ajax</button>
   <% end %>
-
-
 </div>
 <script>
 
   $(function () {
+    $('#submitButton').click(function () {
 
-    $('#imageForm').on("ajax:success", function () {
-      console.log('fuck')
-      if ( $(this).data('remotipartSubmitted') ){
-        console.log('fuck 2')
-      }
+      var data = $('#myForm').serialize()
+
+      $.ajax({
+        url: $('#myForm').attr('action'),
+        type: "POST",
+        dataType: "json", // data respone from server
+        data: data,
+        processData: false,
+
+        success: function (result) {
+          console.log("Success !")
+          console.log(result)
+        },
+        error: function () {
+          console.log("Request fail ...")
+        }
+      });
     });
-
-    $('#imageForm').on("ajax:remotipartComplete", function(e, data){
-      console.log(e, data)
-    });
-
-
   });
 </script>

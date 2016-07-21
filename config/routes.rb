@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get 'user/index'
   get 'user/create'
+  get 'user/create_ajax_form'
+  post 'user/create_user_rails_ajax_form'
   post 'user/create_user'
   get 'user/update/:user_id', to: 'user#update'
   put 'user/update_user', to: 'user#update_user'
