@@ -10,6 +10,8 @@ class UserController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: [:upload_user_image]
 
+  respond_to :html, :xml, :json
+
   def index
     @user = UserModel.where(user_id: params[:user_id]).first
     if @user
@@ -56,7 +58,7 @@ class UserController < ApplicationController
       if request.xhr?
         respond_to do |format|
           format.html { render 'create_ajax_form_template' }
-          format.js { render 'create_ajax_form_action' }
+          format.js { render '_create_ajax_form_action' }
           format.json { render :json => {
               :user => @user
           } }
