@@ -72,17 +72,18 @@ class UserController < ApplicationController
 
   def update
     @user = UserModel.where(user_id: params[:user_id]).first
-    puts "************************ #{@user}"
   end
 
   def update_user
-    @user = UserModel.new(user_params)
+
+    @user = UserModel.find(params.require(:user_model).permit(:id))
+    @current_user = UserModel.new(user_params)
 
     if @user.invalid?
       render action: "update"
     end
 
-    if UserModel.update_attributes(@user)
+    if @user.save
       redirect_to action: "index", user_id: @user.user_id
     end
   end
@@ -127,7 +128,7 @@ class UserController < ApplicationController
 
   private
   def user_params
-    params.require(:user_model).permit(:user_id, :user_name, :password, :password_confirmation, :date_of_birth, :email, :note, :img_url)
+    params.require(:user_model).permit(:id, :user_id, :user_name, :password, :password_confirmation, :date_of_birth, :email, :note, :img_url)
   end
 
   def image_params
