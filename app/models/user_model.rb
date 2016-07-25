@@ -3,11 +3,6 @@ class UserModel < ActiveRecord::Base
   before_save :encrypt_password
   #has_secure_password
 
-
-
-
-
-
   #paperclip
   #has_attached_file :img_url, styles: {medium: '300x300>', thumb: '100x100>'}, default_url: '/assets/missing.png'
   #validates_attachment :img_url, {content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"]}
@@ -45,6 +40,5 @@ class UserModel < ActiveRecord::Base
       self.password_digest = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
-
 
 end

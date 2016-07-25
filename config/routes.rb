@@ -14,13 +14,16 @@ Rails.application.routes.draw do
 
   get 'user/index'
   get 'user/create'
+  post 'user/create_user'
+
   get 'user/create_ajax_form'
   post 'user/create_user_rails_ajax_form'
-  post 'user/create_user'
+
   get 'user/update/:user_id', to: 'user#update'
   put 'user/update_user', to: 'user#update_user'
   delete 'user/delete/:id', to: 'user#delete'
   get 'user/all'
+  get 'user/search_user'
   get 'user/insert_default'
 
   post 'user/upload_user_image'

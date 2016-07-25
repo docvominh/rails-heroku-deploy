@@ -57,11 +57,11 @@ class UserController < ApplicationController
     if @user.save
       if request.xhr?
         respond_to do |format|
-          format.html { render 'create_ajax_form_template' }
+          # format.html { render 'create_ajax_form_template' }
           format.js { render '_create_ajax_form_action' }
-          format.json { render :json => {
-              :user => @user
-          } }
+          # format.json { render :json => {
+          #     :user => @user
+          # } }
         end
       else
         redirect_to action: "index", user_id: @user.user_id
@@ -76,15 +76,22 @@ class UserController < ApplicationController
 
   def update_user
 
-    @user = UserModel.find(params.require(:user_model).permit(:id))
-    @current_user = UserModel.new(user_params)
-
-    if @user.invalid?
+    user = UserModel.find_by_id(user_params[:id])
+    if user.invalid?
       render action: "update"
     end
 
-    if @user.save
-      redirect_to action: "index", user_id: @user.user_id
+
+    current_user = UserModel.new(user_params)
+
+    user.assign_attributes({:user_id => current_user.user_id,
+                            :user_name => current_user.user_name,
+                            :date_of_birth => current_user.date_of_birth,
+                            :email => current_user.email,
+                            :img_url => current_user.img_url,
+                            :note => current_user.note})
+    if user.save
+      redirect_to action: "index", user_id: user.user_id
     end
   end
 
@@ -98,7 +105,40 @@ class UserController < ApplicationController
   end
 
   def all
-    @all_model = UserModel.all
+
+    puts "FUCKKKKKKKKKKKKKK 2"
+    @all_model = UserModel.all.order(:id)
+    @search_user_model = SearchUserModel.new("", "")
+  end
+
+  def search_user
+    search_condition = search_params
+    # CUSTOM QUERY
+    all_model = UserModel.all.order(:id)
+    all_model = all_model.where('user_id ILIKE ?', "%#{search_condition['user_id']}%").order(:id) unless !params[:user_id].blank?
+    all_model = all_model.where('user_name ILIKE ?', "%#{search_condition['user_name']}%").order(:id) unless !params[:user_name].blank?
+
+    if request.xhr?
+      @all_model = all_model
+      puts "AJAXXXXXXXXXXXXXX"
+      respond_to do |format|
+        # format.html { render 'all_list_template' }
+        format.js { render '_all_list_action' }
+
+        # if you want to get json only in basic ajax
+        # format.json { render :json => {
+        #     :all_model => all_model
+        # } }
+
+      end
+    else
+      # AND QUERY
+      # @all_model = UserModel.where(:user_id => search_condition['user_id'], :user_name => search_condition['user_name'])
+
+      @all_model = all_model
+      @search_user_model = SearchUserModel.new(search_condition['user_id'], search_condition['user_name'])
+      render 'all'
+    end
   end
 
   def upload_user_image
@@ -133,6 +173,10 @@ class UserController < ApplicationController
 
   def image_params
     params.require(:user_image).permit(:name, :attachment)
+  end
+
+  def search_params
+    params.require(:search_user_model).permit(:user_id, :user_name)
   end
 
 
