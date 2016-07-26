@@ -1,12 +1,6 @@
 class UserModel < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
   before_save :encrypt_password
-  #has_secure_password
-
-  #paperclip
-  #has_attached_file :img_url, styles: {medium: '300x300>', thumb: '100x100>'}, default_url: '/assets/missing.png'
-  #validates_attachment :img_url, {content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"]}
-
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

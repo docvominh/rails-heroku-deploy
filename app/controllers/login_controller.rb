@@ -11,13 +11,19 @@ class LoginController < ApplicationController
     @model = Login.new(user_id, password)
 
     if @model.invalid?
+      # Back to login page with error had set auto
       render action: "index"
     else
+      # Authenticate login info
       user = UserModel.authenticate(user_id, password)
+
       if user
+
+        # Set session info
         session[:user_id] = user_id
         cookies[:user_id_cookie] = user_id
 
+        # Back to last url
         if session[:current_url]
           current_url = session[:current_url]
           session[:current_url] = nil
@@ -25,9 +31,16 @@ class LoginController < ApplicationController
         else
           redirect_to controller: "home", action: "index"
         end
+
       else
+        # Set custom error
+        # Normal error
         @model.errors[:base] << "Wrong user id or password"
+
+        # Error with field - "User ID - Wrong user id or password ..."
         #@model.errors[:user_id] << "Wrong user id or password"
+
+        # Back to login
         render action: "index"
       end
     end
