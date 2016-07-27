@@ -26,7 +26,10 @@ Rails.application.routes.draw do
   get 'user/search_user'
   get 'user/insert_default'
 
+  get 'user/all-image', to: 'user#user_image'
+  get 'user/upload_user_image_index'
   post 'user/upload_user_image'
+  delete 'user/delete_image/:id', to: 'user#delete_image'
 
   root 'home#index'
   get 'home', to: 'home#index'
@@ -38,5 +41,4 @@ Rails.application.routes.draw do
 
 
   resources :resumes, only: [:index, :new, :create, :destroy]
-
 end

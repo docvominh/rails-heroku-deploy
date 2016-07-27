@@ -1,154 +1,125 @@
-
 /* Common */
-div.logo-image, div.logo-image img, div.solution-block, div.solution-block *
-	{
-	width: 100%;
-	float: left;
+
+$corporation-color: rgb(100, 133, 193);
+
+div.logo-image, div.logo-image img {
+  width: 100%;
+  float: left;
 }
 
-section.body{
+section.body {
   min-height: 100vh;
   //padding-top: 100px;
 }
-section.home, section.solution {
-	background-repeat: no-repeat;
-	background-size: cover;
+
+section.home {
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 section.footer {
-	background-color: #242729;
-	color: #fff;
+  background-color: #242729;
+  color: #fff;
 }
 
 section.home {
-	height: 100vh;
-	background-image: image-url("tulips_13-wallpaper-1920x1080.jpg");
-	background-position: left;
+  height: 100vh;
+  background-image: image-url("ntt-home-2.jpg");
+  background-position: left;
 }
 
-section.solution {
-	background-image: image-url("old_apple_music_gradient-wallpaper-1920x1080.jpg");
-	background-position: center;
-	padding-bottom: 30px;
+section.home > .container {
+  height: 100%;
 }
 
-div.my-logo {
-	margin-top: 100px;
-	text-align: center;
+div.my-logo, div.my-logo-2 {
+  margin-top: 70px;
+  text-align: center;
 }
 
-div.my-solution {
-	margin-top: 50px;
-	margin-bottom: 40px;
-	text-align: center;
-	color: #fff;
-	font-size: 200%;
+div.my-logo h1, div.my-logo-2 h1 {
+
+  font-family: Arial !important;
+  font-weight: bold !important;
+  font-size: 4em !important;
 }
 
-div.my-solution>h1 {
-	font-size: 200%;
+div.my-logo h1 {
+  color: $corporation-color;
 }
 
-div.solution-block {
-	position: relative;
-	border: 3px solid #fff;
-	border-radius: 5px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	text-align: center;
+div.my-logo-2 h1 {
+  color: #ff9900;
 }
 
-div.solution-block>.block-image {
-	margin-bottom: 20px;
-	/* 	height: 210px; */
-	margin-bottom: 20px;
+section.member {
+  display: block;
+  background-color: black;
+  padding-bottom: 30px;
+  min-height: 100vh;
+}
+section.member > .container > *{
+  opacity: 0;
+}
+section.member h1,
+section.member h3 {
+  color: white;
+  text-align: center;
 }
 
-div.solution-block>.block-image>span {
-	font-size: 500%;
+section.member h1 {
+  font-family: Arial !important;
+  font-weight: bold !important;
+  font-size: 3em !important;
 }
 
-div.solution-block>span.block-text {
-	width: 100%;
+.member-item {
+  padding-bottom: 50px;
 }
 
-div.solution-block>span.title {
-	/* 	position: absolute; */
-	/* 	top: 240px; */
-	/* 	left: 0; */
-	/* 	padding-left: 25px; */
-	font-size: 17px;
+.member-item > .img-wrapper {
+  text-align: center;
 }
 
-div.solution-block>div.description {
-	padding: 60px 10px 0 10px;
-	font-size: 16px;
-	text-align: left !important;
+.member-item > .img-wrapper > img {
+  width: 142px;
+  height: 142px;
+  margin: 0 auto;
+  cursor: pointer;
 }
 
-@media ( min-width : 768px) {
-	nav.my-navbar {
-		opacity: 0.8;
-	}
-	section.home {
-		background-position: center;
-	}
-	div.logo-image {
-		display: none;
-	}
-	section.solution {
-		height: 100vh;
-	}
-	div.solution-block>.block-image>span {
-		font-size: 900%;
-	}
+.member-item > .name {
+  font-size: 17pt;
+  margin: 10px 0 2px;
+  cursor: pointer;
+  color: white;
 }
 
-@media ( min-width : 992px) {
+@media (min-width: 768px) {
+  nav.my-navbar {
+    opacity: 0.8;
+  }
+  section.home {
+    background-position: center;
+  }
+  div.logo-image {
+    display: none;
+  }
+
 }
 
-@media ( min-width : 1100px) {
-	nav.my-navbar:hover {
-		opacity: 1;
-	}
-	div.my-logo {
-		margin-top: 500px;
-	}
-	div.solution-block {
-		min-height: 256px;
-	}
-	div.solution-block>.block-image {
-		height: 170px;
-	}
-	div.solution-block>.block-image>span {
-		font-size: 1200%;
-	}
-	div.solution-block>span.title {
-		position: absolute;
-		top: 200px;
-		left: 0;
-		padding-left: 25px;
-		font-size: 35px;
-	}
+@media (min-width: 992px) {
 }
 
-@media ( min-width : 1200px) {
-	div.my-logo {
-		margin-top: 500px;
-	}
-	div.solution-block {
-		min-height: 306px;
-	}
-	div.solution-block>.block-image {
-		height: 210px;
-	}
-	div.solution-block>.block-image>span {
-		font-size: 1500%;
-	}
-	div.solution-block>span.title {
-		top: 240px;
-		left: 0;
-		padding-left: 25px;
-		font-size: 35px;
-	}
+@media (min-width: 1100px) {
+  nav.my-navbar:hover {
+    opacity: 1;
+  }
+
 }
+
+@media (min-width: 1200px) {
+
+}
+
+@import "animate";

@@ -141,15 +141,27 @@ class UserController < ApplicationController
     end
   end
 
+  def user_image
+    @all_image = UserImage.all
+  end
+
+  def upload_user_image_index
+    @user_image = UserImage.new()
+  end
+
   def upload_user_image
     user_image = UserImage.new(image_params)
-
     if user_image.save
-      @id = user_image.id
+      redirect_to action: 'user_image'
+    end
+  end
 
-      render :json => {
-          :id => @id,
-      }
+  def delete_image
+    id = params[:id]
+    if UserImage.delete(id)
+      redirect_to action: 'user_image'
+    else
+
     end
   end
 
