@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
 
-  get 'resumes/index'
+  get 'user_image/index'
 
-  get 'resumes/new'
+  get 'user_image/new'
 
-  get 'resumes/create'
+  post 'user_image/create'
 
-  get 'resumes/destroy'
+  get 'user_image/destroy'
+
+  post 'user_image/image_autocomplete'
 
   get 'login', to: 'login#index'
   get 'logout', to: 'login#logout'
@@ -26,10 +28,10 @@ Rails.application.routes.draw do
   get 'user/search_user'
   get 'user/insert_default'
 
-  get 'user/all-image', to: 'user#user_image'
-  get 'user/upload_user_image_index'
-  post 'user/upload_user_image'
-  delete 'user/delete_image/:id', to: 'user#delete_image'
+  # get 'user/all-image', to: 'user#user_image'
+  # get 'user/upload_user_image_index'
+  # post 'user/upload_user_image'
+  # delete 'user/delete_image/:id', to: 'user#delete_image'
 
   root 'home#index'
   get 'home', to: 'home#index'
@@ -38,7 +40,4 @@ Rails.application.routes.draw do
   get 'home/about'
   post 'home/create'
   get 'home/show'
-
-
-  resources :resumes, only: [:index, :new, :create, :destroy]
 end

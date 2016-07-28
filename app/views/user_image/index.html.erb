@@ -7,7 +7,7 @@
 
   <br/>
 
-  <a class="btn btn-primary" href="<%= url_for(:controller => 'user', :action => 'upload_user_image_index') %>">New Image</a>
+  <a class="btn btn-primary" href="<%= url_for(:controller => 'user_image', :action => 'new') %>">New Image</a>
   <br/>
   <br/>
 
@@ -26,9 +26,9 @@
         <tr>
           <td><%= image.name %></td>
 
-          <td><%= link_to "Download Resume", image.attachment_url %></td>
+          <td><%= link_to "Download Resume", image.attachment.url %></td>
           <td>
-            <a data-method="delete" data-confirm="Are you sure?" href="<%= url_for(:controller => 'user', :action => 'delete_image', :id => image.id) %>">
+            <a data-method="delete" data-confirm="Are you sure?" href="<%= url_for(:controller => 'user_image', :action => 'destroy', :id => image.id) %>">
               <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Delete</button>
             </a>
           </td>

@@ -141,31 +141,6 @@ class UserController < ApplicationController
     end
   end
 
-  def user_image
-    @all_image = UserImage.all
-  end
-
-  def upload_user_image_index
-    @user_image = UserImage.new()
-  end
-
-  def upload_user_image
-    user_image = UserImage.new(image_params)
-    if user_image.save
-      redirect_to action: 'user_image'
-    end
-  end
-
-  def delete_image
-    id = params[:id]
-    if UserImage.delete(id)
-      redirect_to action: 'user_image'
-    else
-
-    end
-  end
-
-
   def insert_default
     @user = UserModel.new
     @user.user_id="minhpd"
@@ -183,13 +158,7 @@ class UserController < ApplicationController
     params.require(:user_model).permit(:id, :user_id, :user_name, :password, :password_confirmation, :date_of_birth, :email, :note, :img_url)
   end
 
-  def image_params
-    params.require(:user_image).permit(:name, :attachment)
-  end
-
   def search_params
     params.require(:search_user_model).permit(:user_id, :user_name)
   end
-
-
 end

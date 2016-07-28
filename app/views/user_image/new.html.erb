@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="well">
-    <%= form_for @user_image, :url => url_for(:controller => 'user', :action => 'upload_user_image'), html: {multipart: true} do |f| %>
+    <%= form_for @user_image, :url => url_for(:controller => 'user_image', :action => 'create'), html: {multipart: true} do |f| %>
         <%= f.label :name %>
         <%= f.text_field :name %>
         <br>
