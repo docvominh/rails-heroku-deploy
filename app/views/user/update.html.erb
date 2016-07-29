@@ -1,3 +1,38 @@
+<style>
+  .ui-autocomplete {
+    list-style: none;
+    /*left: 13px !important;*/
+    /*width: 535.8px !important;*/
+  }
+
+  .user-image-popup {
+    padding-left: 0 !important;
+  }
+
+  .my-autocomplete {
+    background-color: white;
+    border: 1px solid black;
+
+  }
+
+  .my-autocomplete > img {
+    width: 50px;
+    display: inline;
+  }
+
+  .my-autocomplete > p {
+    padding-left: 15px;
+    display: inline;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  #userImageIcon {
+    max-width: 200px;
+  }
+
+
+</style>
 <div class="container" style=" padding-top: 100px;">
   <h1>UPDATE USER "<%= @user.user_name %>"</h1>
 
@@ -33,8 +68,72 @@
       <%= m.text_field :note, :class => 'form-control' %>
 
       <br>
+      <%= m.label :img_url %>
+      <input type="text" id="userImage" class="form-control"/>
+      <%= m.hidden_field :img_url, :id => 'userImageId' %>
+      <br>
+      <img id="userImageIcon" src=""/>
+      <br>
+      <br>
       <%= m.submit :value => 'Update', :class => 'btn btn-lg btn-success btn-block' %>
   <% end %>
 
 
 </div>
+
+<script>
+  $(function () {
+
+    $("#userImage").autocomplete({
+      minLength: 0,
+      source: function (input, response) {
+        $.ajax({
+          url: '/user_image/image_autocomplete',
+          type: "POST",
+          dataType: "json", // data respone from server
+          data: input,
+
+          success: function (result) {
+            console.log("Success !")
+//            console.log(result.all_image)
+            response(result.all_image)
+          },
+          error: function () {
+            console.log("Request fail ...")
+          }
+        });
+      },
+      focus: function (event, ui) {
+        $("#userImage").val(ui.item.name);
+        return false;
+      },
+      select: function (event, ui) {
+        $("#userImage").val(ui.item.name);
+        $("#userImageId").val(ui.item.attachment.url);
+        $("#userImageIcon").attr("src", ui.item.attachment.url);
+        return false;
+      },
+      change: function (event, ui) {
+        if (ui.item != null) {
+        }
+        else {
+          $("#userImage").val("");
+          $("#userImageId").val("");
+          $("#userImageIcon").attr("src", "");
+        }
+      },
+      open: function () {
+        $('.user-image-popup').width($('#userImage').width())
+      }
+    }).autocomplete("instance")._renderItem = function (ul, item) {
+
+      ul.addClass('user-image-popup');
+
+      return $('<li>').append('<div class="my-autocomplete">'
+          + '<img src="' + item.attachment.url + '"/>'
+          + '<p>' + item.name + '<p>'
+          + '</div>')
+          .appendTo(ul);
+    }
+  });
+</script>

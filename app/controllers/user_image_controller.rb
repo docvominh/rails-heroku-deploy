@@ -27,7 +27,10 @@ class UserImageController < ApplicationController
   end
 
   def image_autocomplete
-    @all_image = UserImage.all
+
+
+
+    @all_image = UserImage.where('name ILIKE ?', "%#{params["term"]}%").order(:name)
     puts "STARTTTTTTTTTTTTTTTTTTTTTT"
     # @all_image.each do |item|
     #   item.image_url = item.attachment_url
@@ -47,9 +50,9 @@ class UserImageController < ApplicationController
     params.require(:user_image).permit(:name, :attachment)
   end
 
-  def image_autocomplete_params
-    params.require(:input).permit(:term)
-  end
+  # def image_autocomplete_params
+  #   params.require(:input).permit(:term)
+  # end
 end
 
 

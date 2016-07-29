@@ -4,6 +4,40 @@
     display: inline-block;
     margin-top: 0 !important;
   }
+
+  .ui-autocomplete {
+    list-style: none;
+    /*left: 13px !important;*/
+    /*width: 535.8px !important;*/
+  }
+
+  .user-image-popup {
+    padding-left: 0 !important;
+  }
+
+  .my-autocomplete {
+    background-color: white;
+    border: 1px solid black;
+
+  }
+
+  .my-autocomplete > img {
+    width: 50px;
+    display: inline;
+  }
+
+  .my-autocomplete > p {
+    padding-left: 15px;
+    display: inline;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  #userImageIcon {
+    max-width: 200px;
+  }
+
+
 </style>
 
 <div class="container" style=" padding-top: 100px;">
@@ -16,6 +50,13 @@
       <br>
       <%= m.label :user_name %>
       <%= m.text_field :user_name, :class => 'form-control' %>
+      <br>
+      <%= m.label :role_id %>
+      <%= m.select(:role_id, options_for_select([['Manager', 1],
+                                                 ['CEO', 2],
+                                                 ['SA', 3],
+                                                 ['DEV', 4],
+                                                 ['TESTER', 5]]), {}, {:class => 'form-control'}) %>
 
       <br>
       <%= m.label :password %>
@@ -40,7 +81,8 @@
 
       <br>
       <%= m.label :img_url %>
-      <%= m.text_field :img_url, :id => 'userImage', :class => 'form-control' %>
+      <input type="text" id="userImage" class="form-control"/>
+      <%= m.hidden_field :img_url, :id => 'userImageId' %>
       <br>
       <img id="userImageIcon" src=""/>
       <br>
@@ -53,32 +95,9 @@
 
   $(function () {
 
-    var projects = [
-      {
-        value: "jquery",
-        label: "jQuery",
-        desc: "the write less, do more, JavaScript library",
-        icon: "jquery_32x32.png"
-      },
-      {
-        value: "jquery-ui",
-        label: "jQuery UI",
-        desc: "the official user interface library for jQuery",
-        icon: "jqueryui_32x32.png"
-      },
-      {
-        value: "sizzlejs",
-        label: "Sizzle JS",
-        desc: "a pure-JavaScript CSS selector engine",
-        icon: "sizzlejs_32x32.png"
-      }
-    ];
-
     $("#userImage").autocomplete({
       minLength: 0,
       source: function (input, response) {
-
-
         $.ajax({
           url: '/user_image/image_autocomplete',
           type: "POST",
@@ -101,17 +120,30 @@
       },
       select: function (event, ui) {
         $("#userImage").val(ui.item.name);
-        $("#userImageIcon").attr("src",ui.item.attachment.url);
-
+        $("#userImageId").val(ui.item.attachment.url);
+        $("#userImageIcon").attr("src", ui.item.attachment.url);
         return false;
+      },
+      change: function (event, ui) {
+        if (ui.item != null) {
+        }
+        else {
+          $("#userImage").val("");
+          $("#userImageId").val("");
+          $("#userImageIcon").attr("src", "");
+        }
+      },
+      open: function () {
+        $('.user-image-popup').width($('#userImage').width())
       }
     }).autocomplete("instance")._renderItem = function (ul, item) {
-      return $("<li>")
-          .append("<div>"
-              + item.name + "<br>"
-              + '<img src="'+item.attachment.url+'"/>'
 
-              + "</div>")
+      ul.addClass('user-image-popup');
+
+      return $('<li>').append('<div class="my-autocomplete">'
+          + '<img src="' + item.attachment.url + '"/>'
+          + '<p>' + item.name + '<p>'
+          + '</div>')
           .appendTo(ul);
     }
 

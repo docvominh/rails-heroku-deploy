@@ -1,7 +1,6 @@
 class UserModel < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
   before_save :encrypt_password
-  has_one :role_model
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

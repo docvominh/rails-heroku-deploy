@@ -141,21 +141,9 @@ class UserController < ApplicationController
     end
   end
 
-  def insert_default
-    @user = UserModel.new
-    @user.user_id="minhpd"
-    @user.password="123456"
-    @user.user_name="Phạm Đức Minh"
-    @user.email="phamducminh1990@gmail.com"
-    if @user.save
-      puts "save success"
-    end
-
-  end
-
   private
   def user_params
-    params.require(:user_model).permit(:id, :user_id, :user_name, :password, :password_confirmation, :date_of_birth, :email, :note, :img_url)
+    params.require(:user_model).permit(:id, :user_id, :user_name, :role_id, :password, :password_confirmation, :date_of_birth, :email, :note, :img_url)
   end
 
   def search_params
