@@ -48,6 +48,14 @@
       <%= m.text_field :user_name, :class => 'form-control' %>
 
       <br>
+      <%= m.label :role_id %>
+      <%= m.select(:role_id, options_for_select([['Manager', 1],
+                                                 ['CEO', 2],
+                                                 ['SA', 3],
+                                                 ['DEV', 4],
+                                                 ['TESTER', 5]]), {}, {:class => 'form-control'}) %>
+
+      <br>
       <%= m.label :password %>
       <%= m.password_field :password, :placeholder => "Password", :class => 'form-control' %>
 
@@ -72,7 +80,7 @@
       <input type="text" id="userImage" class="form-control"/>
       <%= m.hidden_field :img_url, :id => 'userImageId' %>
       <br>
-      <img id="userImageIcon" src=""/>
+      <img id="userImageIcon" src="<%m.img_url%>"/>
       <br>
       <br>
       <%= m.submit :value => 'Update', :class => 'btn btn-lg btn-success btn-block' %>

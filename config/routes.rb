@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   post 'user_image/create'
 
+  get 'user_image/destroy'
+
   delete 'user_image/delete_image/:id', to: 'user_image#destroy'
 
   post 'user_image/image_autocomplete'
