@@ -5,10 +5,10 @@ class HomeController < ApplicationController
   end
 
   def about
-    puts "#######################################"
-    conn=PGconn.connect(:hostaddr => "127.0.0.1", :port => 5432, :dbname => "ruby-example", :user => "postgres", :password => 'Hello12#')
-    res = conn.exec("SELECT * FROM user_models")
-    fieldArray = res.fields()
+    # puts "#######################################"
+    # conn=PGconn.connect(:hostaddr => "127.0.0.1", :port => 5432, :dbname => "ruby-example", :user => "postgres", :password => 'Hello12#')
+    # res = conn.exec("SELECT * FROM user_models")
+    # fieldArray = res.fields()
     #
     connection = ActiveRecord::Base.connection
     res2 = connection.execute("SELECT * FROM user_models")
