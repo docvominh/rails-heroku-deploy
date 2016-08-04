@@ -14,8 +14,8 @@ class HomeController < ApplicationController
     res2 = connection.execute("SELECT * FROM user_models")
     fieldArray2 = res2.fields()
     #
-    puts "-----fieldArray1-----"
-    puts fieldArray
+    # puts "-----fieldArray1-----"
+    # puts fieldArray
     puts "-----fieldArray2-----"
     puts fieldArray2
   end
